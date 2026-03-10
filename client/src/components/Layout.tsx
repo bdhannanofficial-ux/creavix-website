@@ -1,7 +1,7 @@
 import { ReactNode, useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ChevronRight, BadgeCheck, Globe, Sun, Moon } from "lucide-react";
+import { Menu, X, ChevronRight, BadgeCheck, Globe, Sun, Moon, MapPin } from "lucide-react";
 import { FaFacebookF, FaLinkedinIn, FaYoutube, FaInstagram, FaXTwitter } from "react-icons/fa6";
 import logoImg from "@assets/new-logo_1773114552036.png";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -357,6 +357,19 @@ export function Layout({ children }: { children: ReactNode }) {
                 <li>
                   <a href="https://wa.me/8801890484355" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-300 transition-colors">
                     WhatsApp: +880 1890484355
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.google.com/maps/search/?api=1&query=Hemayetpur,Savar,Dhaka,Bangladesh"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-start gap-2 hover:text-cyan-300 transition-colors group"
+                  >
+                    <MapPin size={14} className="shrink-0 mt-0.5 text-cyan-600 group-hover:text-cyan-300 transition-colors" />
+                    <span style={{ fontFamily: lang === "bn" ? "'Hind Siliguri', 'DM Sans', sans-serif" : undefined }}>
+                      {t("contact_address")}
+                    </span>
                   </a>
                 </li>
               </ul>

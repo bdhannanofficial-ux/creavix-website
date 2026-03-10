@@ -102,6 +102,13 @@ const translations = {
     blog_author: "Creavix Editorial Team",
     blog_author_role: "Digital Marketing & Video Production Experts",
     blog_cta_text: "Ready to implement these strategies for your brand?",
+    // Location / Map
+    contact_address_label: "Office Address",
+    contact_address: "1340, East Hati Road, Hemayetpur, Savar, Dhaka.",
+    contact_location_heading: "Our Location",
+    map_open: "Open in Google Maps",
+    map_get_directions: "Get Directions",
+    footer_address_label: "Address",
     // Footer
     footer_tagline: "Transforming businesses into global brands through innovative digital strategies and creative excellence.",
     footer_quicklinks: "Quick Links",
@@ -229,6 +236,13 @@ const translations = {
     blog_author: "ক্রিয়েভিক্স সম্পাদকীয় দল",
     blog_author_role: "ডিজিটাল মার্কেটিং ও ভিডিও প্রোডাকশন বিশেষজ্ঞ",
     blog_cta_text: "আপনার ব্র্যান্ডের জন্য এই কৌশলগুলি বাস্তবায়ন করতে চান?",
+    // Location / Map
+    contact_address_label: "অফিস ঠিকানা",
+    contact_address: "১৩৪০, পূর্ব হাটি রোড, হেমায়েতপুর, সাভার, ঢাকা।",
+    contact_location_heading: "আমাদের অবস্থান",
+    map_open: "গুগল ম্যাপে দেখুন",
+    map_get_directions: "দিকনির্দেশনা পান",
+    footer_address_label: "ঠিকানা",
     // Footer
     footer_tagline: "ইনোভেটিভ ডিজিটাল স্ট্র্যাটেজি ও সৃজনশীল উৎকর্ষের মাধ্যমে ব্যবসাকে গ্লোবাল ব্র্যান্ডে রূপান্তর করা।",
     footer_quicklinks: "দ্রুত লিংক",

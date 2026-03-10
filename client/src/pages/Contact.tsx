@@ -11,10 +11,10 @@ import { api } from "@shared/routes";
 import { z } from "zod";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useTheme } from "@/contexts/ThemeContext";
+import { OfficeMap } from "@/components/OfficeMap";
 
 const BENGALI_FONT = "'Hind Siliguri', 'DM Sans', sans-serif";
-const MAP_EMBED_URL = "https://maps.google.com/maps?q=1340+Purba+Hati+Road+Hemayetpur+Savar+Dhaka+Bangladesh&t=&z=16&ie=UTF8&iwloc=&output=embed";
-const MAP_OPEN_URL = "https://www.google.com/maps/search/?api=1&query=Hemayetpur,Savar,Dhaka,Bangladesh";
+const MAP_OPEN_URL = "https://www.google.com/maps/dir/?api=1&destination=23.8548,90.2468";
 
 type ContactFormData = z.infer<typeof api.contacts.create.input>;
 
@@ -304,39 +304,8 @@ export default function Contact() {
             </a>
           </div>
 
-          {/* Map container */}
-          <div
-            className="relative w-full overflow-hidden rounded-2xl sm:rounded-3xl"
-            style={{
-              border: isDark ? "1px solid rgba(255,255,255,0.08)" : "1px solid rgba(0,0,0,0.1)",
-              boxShadow: isDark
-                ? "0 8px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(6,182,212,0.08)"
-                : "0 8px 40px rgba(0,0,0,0.1), 0 0 0 1px rgba(6,182,212,0.1)",
-              aspectRatio: "16/7",
-            }}
-          >
-            {/* Gradient top bar accent */}
-            <div
-              className="absolute top-0 left-0 right-0 h-0.5 z-10 pointer-events-none"
-              style={{ background: "linear-gradient(90deg, #06b6d4, #a855f7, #22c55e)" }}
-            />
-            <iframe
-              src={MAP_EMBED_URL}
-              title={isBn ? "আমাদের অফিসের অবস্থান" : "Our Office Location"}
-              width="100%"
-              height="100%"
-              style={{
-                border: 0,
-                display: "block",
-                minHeight: "260px",
-                filter: isDark ? "brightness(0.88) contrast(1.05)" : "none",
-              }}
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              data-testid="iframe-map"
-            />
-          </div>
+          {/* Interactive Leaflet Map */}
+          <OfficeMap height="420px" />
 
           {/* Address card below map */}
           <div

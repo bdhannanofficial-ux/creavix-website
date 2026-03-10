@@ -50,15 +50,41 @@ export function Layout({ children }: { children: ReactNode }) {
       {/* ─── Language / Translate Bar ─── */}
       <div className="creavix-topbar fixed top-0 w-full z-[60] bg-[#040810]/95 backdrop-blur-md border-b border-white/[0.05]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-9 flex items-center justify-between">
-          {/* Left: marquee info */}
+          {/* Left: marquee info — clickable links */}
           <div className="overflow-hidden flex-1 mr-6 hidden sm:block">
-            <motion.p
-              className="text-[11px] text-slate-500 whitespace-nowrap"
+            <motion.div
+              className="flex items-center gap-5 text-[11px] text-slate-500 whitespace-nowrap"
               animate={{ x: ["100%", "-100%"] }}
-              transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
+              transition={{ duration: 32, repeat: Infinity, ease: "linear" }}
             >
-              🌐 {t("topbar_marquee")}
-            </motion.p>
+              <span>🌐 Creavix IT Solution — Premium Video Production & Digital Marketing Agency</span>
+              <span className="text-slate-700">|</span>
+              <a
+                href="mailto:info@creavixit.com"
+                className="hover:text-cyan-400 transition-colors"
+                style={{ touchAction: "manipulation", WebkitTapHighlightColor: "transparent" } as React.CSSProperties}
+              >
+                ✉ info@creavixit.com
+              </a>
+              <span className="text-slate-700">|</span>
+              <a
+                href="tel:+8809611132835"
+                className="hover:text-cyan-400 transition-colors"
+                style={{ touchAction: "manipulation", WebkitTapHighlightColor: "transparent" } as React.CSSProperties}
+              >
+                📞 +880 9611132835
+              </a>
+              <span className="text-slate-700">|</span>
+              <a
+                href="https://wa.me/8801890484355"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-green-400 transition-colors"
+                style={{ touchAction: "manipulation", WebkitTapHighlightColor: "transparent" } as React.CSSProperties}
+              >
+                💬 WhatsApp: +880 1890484355
+              </a>
+            </motion.div>
           </div>
 
           {/* Right: Language Toggle */}

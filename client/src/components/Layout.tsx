@@ -364,7 +364,13 @@ export function Layout({ children }: { children: ReactNode }) {
 
           <div className="border-t border-white/5 pt-6 text-center text-xs text-slate-600 flex flex-col md:flex-row justify-between items-center gap-3">
             <p>&copy; {new Date().getFullYear()} Creavix IT Solution. {t("footer_rights")}</p>
-            <p>{t("footer_crafted")}</p>
+            <div className="flex items-center gap-4">
+              <Link href="/terms" className="hover:text-cyan-400 transition-colors">
+                {lang === "bn" ? "নীতিমালা ও শর্তাবলি" : "Terms & Conditions"}
+              </Link>
+              <span className="text-slate-700">·</span>
+              <p>{t("footer_crafted")}</p>
+            </div>
           </div>
         </div>
       </footer>

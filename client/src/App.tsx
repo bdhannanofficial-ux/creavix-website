@@ -10,6 +10,7 @@ import Home from "@/pages/Home";
 import Team from "@/pages/Team";
 import Contact from "@/pages/Contact";
 import Blog from "@/pages/Blog";
+import Terms from "@/pages/Terms";
 
 function Router() {
   return (
@@ -18,6 +19,7 @@ function Router() {
       <Route path="/team" component={Team} />
       <Route path="/blog" component={Blog} />
       <Route path="/contact" component={Contact} />
+      <Route path="/terms" component={Terms} />
       <Route component={NotFound} />
     </Switch>
   );

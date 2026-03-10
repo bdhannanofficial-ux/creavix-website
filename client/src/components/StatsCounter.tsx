@@ -103,7 +103,7 @@ function StatCard({ icon, value, suffix, label, sublabel, color, trigger, delay 
 }
 
 export function StatsCounter() {
-  const { lang: language } = useLanguage();
+  const { lang: language, t } = useLanguage();
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { amount: 0.2 });
   const [trigger, setTrigger] = useState(false);
@@ -130,8 +130,8 @@ export function StatsCounter() {
       icon: <Briefcase className="w-4 h-4" />,
       value: 3700,
       suffix: "+",
-      label: language === 'bn' ? "মোট প্রজেক্ট ডেলিভারি" : "Total Projects Delivered",
-      sublabel: language === 'bn' ? "সফলভাবে সম্পন্ন" : "Successfully completed",
+      label: t("stat_projects_label"),
+      sublabel: t("stat_projects_sub"),
       color: "#06b6d4",
       delay: 0,
     },
@@ -139,8 +139,8 @@ export function StatsCounter() {
       icon: <Users className="w-4 h-4" />,
       value: 2100,
       suffix: "+",
-      label: language === 'bn' ? "সন্তুষ্ট ক্লায়েন্ট" : "Satisfied Clients",
-      sublabel: language === 'bn' ? "বিশ্বব্যাপী বিশ্বস্ত" : "Trusted worldwide",
+      label: t("stat_clients_label"),
+      sublabel: t("stat_clients_sub"),
       color: "#a855f7",
       delay: 0.1,
     },
@@ -148,8 +148,8 @@ export function StatsCounter() {
       icon: <Star className="w-4 h-4 fill-current" />,
       value: fiveStarTotal,
       suffix: "",
-      label: language === 'bn' ? "ফাইভ স্টার রেটিং" : "Five-Star Ratings",
-      sublabel: language === 'bn' ? "যাচাইকৃত পর্যালোচনা" : "Verified reviews",
+      label: t("stat_stars_label"),
+      sublabel: t("stat_stars_sub"),
       color: "#f59e0b",
       delay: 0.2,
       isRating: true,
@@ -159,8 +159,8 @@ export function StatsCounter() {
       icon: <Trophy className="w-4 h-4" />,
       value: 100,
       suffix: "%",
-      label: language === 'bn' ? "ক্লায়েন্ট সন্তুষ্টি" : "Client Satisfaction",
-      sublabel: language === 'bn' ? "প্রতিশ্রুতিবদ্ধ মান" : "Committed quality",
+      label: t("stat_satisfaction_label"),
+      sublabel: t("stat_satisfaction_sub"),
       color: "#10b981",
       delay: 0.3,
     },
@@ -181,15 +181,13 @@ export function StatsCounter() {
         >
           <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-amber-400/30 bg-amber-400/10 text-amber-400 text-xs font-semibold uppercase tracking-widest">
             <Star className="w-3 h-3 fill-current" />
-            {language === 'bn' ? "আমাদের অর্জন" : "Our Achievements"}
+            {t("stats_badge")}
           </span>
           <h2 className="mt-3 text-2xl md:text-3xl font-black text-foreground">
-            {language === 'bn' ? "সংখ্যায় আমাদের সাফল্য" : "Our Success in Numbers"}
+            {t("stats_heading")}
           </h2>
           <p className="text-muted-foreground text-sm mt-1.5 max-w-md mx-auto">
-            {language === 'bn'
-              ? "বিশ্বব্যাপী ক্লায়েন্টদের বিশ্বাস অর্জন করেছি"
-              : "Earning the trust of clients worldwide through premium quality"}
+            {t("stats_sub")}
           </p>
         </motion.div>
 
@@ -221,18 +219,18 @@ export function StatsCounter() {
           className="mt-7 flex flex-wrap justify-center gap-2"
         >
           {[
-            { flag: "🇧🇩", label: "Bangladesh" },
-            { flag: "🇺🇸", label: "USA" },
-            { flag: "🇬🇧", label: "UK" },
-            { flag: "🇦🇪", label: "UAE" },
-            { flag: "🇸🇦", label: "Saudi" },
-            { flag: "🇨🇦", label: "Canada" },
+            { flag: "🇧🇩", key: "stat_country_bd" as const },
+            { flag: "🇺🇸", key: "stat_country_us" as const },
+            { flag: "🇬🇧", key: "stat_country_uk" as const },
+            { flag: "🇦🇪", key: "stat_country_uae" as const },
+            { flag: "🇸🇦", key: "stat_country_sa" as const },
+            { flag: "🇨🇦", key: "stat_country_ca" as const },
           ].map(c => (
             <span
-              key={c.label}
+              key={c.key}
               className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-muted-foreground text-xs font-medium border border-white/10 bg-white/[0.03]"
             >
-              <span>{c.flag}</span>{c.label}
+              <span>{c.flag}</span>{t(c.key)}
             </span>
           ))}
         </motion.div>

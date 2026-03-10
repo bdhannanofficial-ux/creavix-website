@@ -274,6 +274,7 @@ interface ArticleModalProps {
 }
 
 function ArticleModal({ post, lang, onClose }: ArticleModalProps) {
+  const { t } = useLanguage();
   const dates = getDateStrings(post.daysAgo);
 
   return (
@@ -313,7 +314,7 @@ function ArticleModal({ post, lang, onClose }: ArticleModalProps) {
                 </span>
                 <span className="text-xs text-slate-500 flex items-center gap-1">
                   <Clock size={11} />
-                  {post.readTime} {lang === "bn" ? "মিনিট পড়া" : "min read"}
+                  {post.readTime} {t("min_read")}
                 </span>
                 <span className="text-xs text-slate-500">{lang === "bn" ? dates.bn : dates.en}</span>
               </div>
@@ -348,7 +349,7 @@ function ArticleModal({ post, lang, onClose }: ArticleModalProps) {
                     <Lightbulb size={14} className="text-amber-400" />
                   </div>
                   <h3 className="text-sm font-bold text-white uppercase tracking-wide">
-                    {lang === "bn" ? "মূল বিষয়সমূহ" : "Key Takeaways"}
+                    {t("blog_key_takeaways")}
                   </h3>
                 </div>
                 <ul className="space-y-2.5">
@@ -365,9 +366,7 @@ function ArticleModal({ post, lang, onClose }: ArticleModalProps) {
               <div className="rounded-2xl p-6 text-center border border-white/8"
                 style={{ background: "rgba(255,255,255,0.02)" }}>
                 <p className="text-slate-300 text-sm mb-4">
-                  {lang === "bn"
-                    ? "আপনার ব্র্যান্ডের জন্য এই কৌশলগুলি বাস্তবায়ন করতে চান?"
-                    : "Ready to implement these strategies for your brand?"}
+                  {t("blog_cta_text")}
                 </p>
                 <div className="flex flex-wrap justify-center gap-3">
                   <Link
@@ -380,13 +379,13 @@ function ArticleModal({ post, lang, onClose }: ArticleModalProps) {
                     }}
                     data-testid="button-article-cta"
                   >
-                    {lang === "bn" ? "প্রজেক্ট শুরু করুন" : "Start Your Project"} →
+                    {t("blog_start_project")} →
                   </Link>
                   <button
                     onClick={onClose}
                     className="px-5 py-2.5 rounded-full text-sm font-semibold text-slate-300 border border-white/15 hover:bg-white/5 transition-all"
                   >
-                    {lang === "bn" ? "ব্লগে ফিরে যান" : "Back to Blog"}
+                    {t("blog_back")}
                   </button>
                 </div>
               </div>
@@ -395,14 +394,12 @@ function ArticleModal({ post, lang, onClose }: ArticleModalProps) {
               <div className="flex items-center gap-3 py-4 border-t border-white/5">
                 <div className="w-9 h-9 rounded-full bg-gradient-to-br from-cyan-500/30 to-purple-500/30 flex items-center justify-center text-xs font-bold text-white border border-cyan-500/30">C</div>
                 <div>
-                  <p className="text-sm font-semibold text-white">Creavix Editorial Team</p>
-                  <p className="text-xs text-slate-500">
-                    {lang === "bn" ? "ডিজিটাল মার্কেটিং ও ভিডিও প্রোডাকশন বিশেষজ্ঞ" : "Digital Marketing & Video Production Experts"}
-                  </p>
+                  <p className="text-sm font-semibold text-white">{t("blog_author")}</p>
+                  <p className="text-xs text-slate-500">{t("blog_author_role")}</p>
                 </div>
                 <button className="ml-auto flex items-center gap-1.5 text-xs text-slate-500 hover:text-cyan-400 transition-colors">
                   <Share2 size={13} />
-                  {lang === "bn" ? "শেয়ার" : "Share"}
+                  {t("blog_share")}
                 </button>
               </div>
             </div>
@@ -431,7 +428,7 @@ export default function Blog() {
         >
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-bold uppercase tracking-widest mb-6">
             <BookOpen size={13} />
-            {lang === "bn" ? "ক্রিয়েভিক্স ব্লগ" : "Creavix Blog"}
+            {t("blog_label")}
           </div>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6" style={{ fontFamily: "var(--font-display)" }}>
             {t("blog_heading")} <span style={{
@@ -495,7 +492,7 @@ export default function Blog() {
                   <ArrowRight size={22} className="text-cyan-400 group-hover:translate-x-1 transition-transform" />
                 </div>
                 <p className="text-center text-[10px] text-slate-500 mt-2 font-medium uppercase tracking-wider">
-                  {lang === "bn" ? "পড়ুন" : "Read"}
+                  {t("read_more")}
                 </p>
               </div>
             </div>

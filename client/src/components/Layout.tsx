@@ -55,7 +55,7 @@ export function Layout({ children }: { children: ReactNode }) {
               animate={{ x: ["100%", "-100%"] }}
               transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
             >
-              🌐 Creavix IT Solution — Premium Video Production & Digital Marketing Agency &nbsp;|&nbsp; info@creavixit.com &nbsp;|&nbsp; +880 9611132835 &nbsp;|&nbsp; WhatsApp: +880 1890484355
+              🌐 {t("topbar_marquee")}
             </motion.p>
           </div>
 
@@ -131,7 +131,7 @@ export function Layout({ children }: { children: ReactNode }) {
                 <span className="flex items-center gap-1 mt-0.5">
                   <BadgeCheck size={10} className="text-cyan-400" />
                   <span className="text-[9px] font-semibold text-cyan-400/90 tracking-widest uppercase">
-                    Verified Agency
+                    {t("verified_agency")}
                   </span>
                 </span>
               </div>
@@ -290,7 +290,7 @@ export function Layout({ children }: { children: ReactNode }) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Footer Search */}
           <div className="mb-12">
-            <p className="text-center text-sm text-slate-500 mb-4">{lang === "bn" ? "ওয়েবসাইটে যা চান খুঁজে নিন" : "Find anything on our website"}</p>
+            <p className="text-center text-sm text-slate-500 mb-4">{t("footer_find")}</p>
             <SearchBar variant="footer" />
           </div>
 

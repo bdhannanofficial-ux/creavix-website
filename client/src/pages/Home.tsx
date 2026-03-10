@@ -67,7 +67,7 @@ export default function Home() {
                 color: "#67e8f9",
               }}>
               <Brain size={14} className="text-cyan-400" />
-              <span>AI-Powered Agency</span>
+              <span>{t("hero_ai_badge")}</span>
               <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
             </div>
           </motion.div>
@@ -109,13 +109,13 @@ export default function Home() {
             className="flex flex-wrap justify-center gap-2 mb-12"
           >
             {[
-              { icon: Zap, label: "3700+ Projects" },
-              { icon: Sparkles, label: "Premium Quality" },
-              { icon: Brain, label: "AI Enhanced" },
-            ].map(({ icon: Icon, label }) => (
-              <span key={label} className="flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-semibold text-slate-300 border border-white/10 bg-white/[0.04] backdrop-blur-sm">
+              { icon: Zap, key: "hero_feat_projects" as const },
+              { icon: Sparkles, key: "hero_feat_quality" as const },
+              { icon: Brain, key: "hero_feat_ai" as const },
+            ].map(({ icon: Icon, key }) => (
+              <span key={key} className="flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-semibold text-slate-300 border border-white/10 bg-white/[0.04] backdrop-blur-sm">
                 <Icon size={12} className="text-cyan-400" />
-                {label}
+                {t(key)}
               </span>
             ))}
           </motion.div>

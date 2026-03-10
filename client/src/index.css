@@ -169,13 +169,22 @@
   border-color: rgba(0, 0, 0, 0.08) !important;
 }
 
-/* Blog modal overlay in light mode */
-.light .blog-modal-overlay {
-  background: rgba(0, 0, 0, 0.5) !important;
-}
-.light .blog-modal-content [class*="text-white"] {
-  color: hsl(var(--foreground)) !important;
-}
+/* Blog modal ALWAYS has dark bg — force light text regardless of page theme */
+/* Using .light prefix for higher specificity (0,3,0 vs 0,2,1 of the main override) */
+.blog-modal-content [class*="text-white"],
+.light .blog-modal-content [class*="text-white"] { color: white !important; }
+.blog-modal-content .text-slate-300,
+.light .blog-modal-content .text-slate-300 { color: rgb(203,213,225) !important; }
+.blog-modal-content .text-slate-400,
+.light .blog-modal-content .text-slate-400 { color: rgb(148,163,184) !important; }
+.blog-modal-content .text-slate-500,
+.light .blog-modal-content .text-slate-500 { color: rgb(100,116,139) !important; }
+.blog-modal-content .text-slate-600,
+.light .blog-modal-content .text-slate-600 { color: rgb(71,85,105) !important; }
+.blog-modal-content [class*="bg-white/"],
+.light .blog-modal-content [class*="bg-white/"] { background-color: rgba(255,255,255,0.05) !important; }
+.blog-modal-content [class*="border-white/"],
+.light .blog-modal-content [class*="border-white/"] { border-color: rgba(255,255,255,0.1) !important; }
 
 /* AI Grid slightly more visible in light mode */
 .light .ai-grid-bg {

@@ -13,16 +13,16 @@ export default function Team() {
   const experts = [
     {
       name: "Sabbir Khan",
-      role: "Senior Video Editor",
-      experience: "4 Years",
+      roleKey: "team_role_senior_editor" as const,
+      expKey: "team_exp_4yr" as const,
       image: sabbirImg,
       bioKey: "sabbir_bio" as const,
       facebook: "https://web.facebook.com/sabbirkhan8"
     },
     {
       name: "Shajnine Jahan",
-      role: "Senior Video Editor",
-      experience: "3 Years",
+      roleKey: "team_role_senior_editor" as const,
+      expKey: "team_exp_3yr" as const,
       image: shajnineImg,
       bioKey: "shajnine_bio" as const,
       facebook: "https://web.facebook.com/shajnine.ohee"
@@ -141,7 +141,7 @@ export default function Team() {
 
                   <h3 className="text-2xl font-display font-bold mb-2">{expert.name}</h3>
                   <div className="flex items-center gap-2 text-primary font-medium text-sm tracking-wider uppercase mb-6">
-                    <Briefcase size={16} /> {expert.role} • {expert.experience}
+                    <Briefcase size={16} /> {t(expert.roleKey)} • {t(expert.expKey)}
                   </div>
 
                   <p className="text-muted-foreground leading-relaxed flex-grow mb-8">

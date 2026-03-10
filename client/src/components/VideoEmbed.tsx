@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Play, X } from "lucide-react";
 
@@ -8,78 +8,118 @@ interface VideoEmbedProps {
   isShorts?: boolean;
 }
 
-export function VideoEmbed({ videoId, title, isShorts = false }: VideoEmbedProps) {
-  const [modalOpen, setModalOpen] = useState(false);
+/* ─── Landscape: inline 16:9 player — auto-stops when scrolled away ─── */
+function LandscapeVideo({ videoId, title }: { videoId: string; title: string }) {
   const [loaded, setLoaded] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
 
   const thumbHq = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
   const thumbMq = `https://img.youtube.com/vi/${videoId}/mqdefault.jpg`;
 
-  const open = useCallback(() => setModalOpen(true), []);
+  /* Auto-stop when the card scrolls out of viewport */
+  useEffect(() => {
+    if (!loaded) return;
+    const el = cardRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) setLoaded(false);
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [loaded]);
+
+  return (
+    <div
+      ref={cardRef}
+      className="group relative w-full overflow-hidden rounded-xl sm:rounded-2xl bg-black border border-white/10 hover:border-white/20 transition-colors duration-300"
+      style={{ aspectRatio: "16/9" }}
+      data-testid={`video-card-${videoId}`}
+    >
+      {!loaded ? (
+        <button
+          className="absolute inset-0 w-full h-full cursor-pointer focus:outline-none"
+          style={{ touchAction: "manipulation", WebkitTapHighlightColor: "transparent" } as React.CSSProperties}
+          onClick={() => setLoaded(true)}
+          aria-label={`Play: ${title}`}
+        >
+          <img
+            src={thumbHq}
+            alt={title}
+            className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            loading="lazy"
+            decoding="async"
+            onError={e => { (e.target as HTMLImageElement).src = thumbMq; }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent group-hover:from-black/20 transition-all duration-300" />
+
+          {/* Premium play button */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div
+              className="w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center transition-all duration-200 group-hover:scale-110 group-active:scale-90"
+              style={{
+                background: "rgba(255,0,0,0.92)",
+                boxShadow: "0 6px 32px rgba(255,0,0,0.55), 0 0 0 4px rgba(255,255,255,0.15)",
+              }}
+            >
+              <Play fill="white" className="w-7 h-7 sm:w-8 sm:h-8 text-white ml-1" />
+            </div>
+          </div>
+
+          {/* Title at bottom */}
+          <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4">
+            <p className="text-white text-xs sm:text-sm font-medium leading-snug line-clamp-2 drop-shadow-lg text-left">
+              {title}
+            </p>
+          </div>
+        </button>
+      ) : (
+        <iframe
+          src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&playsinline=1&vq=hd1080`}
+          title={title}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+          allowFullScreen
+          className="absolute inset-0 w-full h-full border-0"
+        />
+      )}
+    </div>
+  );
+}
+
+/* ─── Shorts: portrait 9:16 thumbnail — opens fullscreen modal, auto-closes on scroll ─── */
+function ShortsVideo({ videoId, title }: { videoId: string; title: string }) {
+  const [modalOpen, setModalOpen] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  const thumbHq = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+  const thumbMq = `https://img.youtube.com/vi/${videoId}/mqdefault.jpg`;
+
+  const open  = useCallback(() => setModalOpen(true), []);
   const close = useCallback(() => setModalOpen(false), []);
 
-  /* ── LANDSCAPE (16:9) — for full-length videos, plays inline ── */
-  if (!isShorts) {
-    return (
-      <div
-        className="group relative w-full overflow-hidden rounded-xl sm:rounded-2xl bg-black border border-white/10 hover:border-white/20 transition-colors duration-300"
-        style={{ aspectRatio: "16/9" }}
-        data-testid={`video-card-${videoId}`}
-      >
-        {!loaded ? (
-          <button
-            className="absolute inset-0 w-full h-full cursor-pointer focus:outline-none"
-            style={{ touchAction: "manipulation", WebkitTapHighlightColor: "transparent" } as React.CSSProperties}
-            onClick={() => setLoaded(true)}
-            aria-label={`Play: ${title}`}
-          >
-            <img
-              src={thumbHq}
-              alt={title}
-              className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-              loading="lazy"
-              decoding="async"
-              onError={e => { (e.target as HTMLImageElement).src = thumbMq; }}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent group-hover:from-black/20 transition-all duration-300" />
+  /* Auto-close modal when the thumbnail card scrolls out of viewport */
+  useEffect(() => {
+    if (!modalOpen) return;
+    const el = cardRef.current;
+    if (!el) return;
 
-            {/* Premium play button */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div
-                className="w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center transition-all duration-200 group-hover:scale-110 group-active:scale-90"
-                style={{
-                  background: "rgba(255,0,0,0.92)",
-                  boxShadow: "0 6px 32px rgba(255,0,0,0.55), 0 0 0 4px rgba(255,255,255,0.15)",
-                }}
-              >
-                <Play fill="white" className="w-7 h-7 sm:w-8 sm:h-8 text-white ml-1" />
-              </div>
-            </div>
-
-            {/* Title at bottom */}
-            <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4">
-              <p className="text-white text-xs sm:text-sm font-medium leading-snug line-clamp-2 drop-shadow-lg text-left">
-                {title}
-              </p>
-            </div>
-          </button>
-        ) : (
-          <iframe
-            src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&playsinline=1&vq=hd1080`}
-            title={title}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
-            allowFullScreen
-            className="absolute inset-0 w-full h-full border-0"
-          />
-        )}
-      </div>
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) setModalOpen(false);
+      },
+      { threshold: 0.1 }
     );
-  }
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [modalOpen]);
 
-  /* ── PORTRAIT (9:16) — for YouTube Shorts ── */
   return (
     <>
       <div
+        ref={cardRef}
         className="group relative w-full overflow-hidden rounded-xl sm:rounded-2xl bg-black cursor-pointer select-none"
         style={{
           aspectRatio: "9/16",
@@ -134,8 +174,7 @@ export function VideoEmbed({ videoId, title, isShorts = false }: VideoEmbedProps
         </div>
       </div>
 
-      {/* Fullscreen HD Modal for Shorts
-          Close button is at z-[302] — above the iframe (z-[301]) so it always receives clicks */}
+      {/* Fullscreen HD Modal */}
       <AnimatePresence>
         {modalOpen && (
           <>
@@ -178,7 +217,7 @@ export function VideoEmbed({ videoId, title, isShorts = false }: VideoEmbedProps
               </div>
             </motion.div>
 
-            {/* Close button — fixed at z-[302], above the iframe, always clickable */}
+            {/* Close button — z-[302], always above iframe */}
             <motion.button
               key={`close-${videoId}`}
               className="fixed top-4 right-4 sm:top-6 sm:right-6 z-[302] w-11 h-11 rounded-full flex items-center justify-center text-white"
@@ -207,4 +246,12 @@ export function VideoEmbed({ videoId, title, isShorts = false }: VideoEmbedProps
       </AnimatePresence>
     </>
   );
+}
+
+/* ─── Public export — routes to correct component ─── */
+export function VideoEmbed({ videoId, title, isShorts = false }: VideoEmbedProps) {
+  if (!isShorts) {
+    return <LandscapeVideo videoId={videoId} title={title} />;
+  }
+  return <ShortsVideo videoId={videoId} title={title} />;
 }

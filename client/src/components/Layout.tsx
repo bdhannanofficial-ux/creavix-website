@@ -1,10 +1,11 @@
 import { ReactNode, useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ChevronRight, BadgeCheck, Globe } from "lucide-react";
+import { Menu, X, ChevronRight, BadgeCheck, Globe, Sun, Moon } from "lucide-react";
 import { FaFacebookF, FaLinkedinIn, FaYoutube, FaInstagram, FaXTwitter } from "react-icons/fa6";
 import logoImg from "@assets/new-logo_1773114552036.png";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useTheme } from "@/contexts/ThemeContext";
 import { SearchBar } from "@/components/SearchBar";
 import { FloatingActions } from "@/components/FloatingActions";
 
@@ -21,6 +22,7 @@ export function Layout({ children }: { children: ReactNode }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { lang, setLang, t } = useLanguage();
+  const { theme, toggleTheme } = useTheme();
 
   const navLinks = [
     { key: "nav_portfolio" as const, path: "/" },
@@ -44,7 +46,7 @@ export function Layout({ children }: { children: ReactNode }) {
       <div className="fixed inset-0 z-[-1] bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(6,182,212,0.08),transparent)] pointer-events-none" />
 
       {/* ─── Language / Translate Bar ─── */}
-      <div className="fixed top-0 w-full z-[60] bg-[#040810]/95 backdrop-blur-md border-b border-white/[0.05]">
+      <div className="creavix-topbar fixed top-0 w-full z-[60] bg-[#040810]/95 backdrop-blur-md border-b border-white/[0.05]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-9 flex items-center justify-between">
           {/* Left: marquee info */}
           <div className="overflow-hidden flex-1 mr-6 hidden sm:block">
@@ -90,7 +92,7 @@ export function Layout({ children }: { children: ReactNode }) {
 
       {/* ─── Main Navigation ─── */}
       <header
-        className={`fixed top-9 w-full z-50 transition-all duration-500 ${
+        className={`creavix-header fixed top-9 w-full z-50 transition-all duration-500 ${
           isScrolled
             ? "py-2 bg-[#080d1a]/97 backdrop-blur-2xl shadow-[0_4px_40px_rgba(0,0,0,0.7)] border-b border-cyan-500/10"
             : "py-3 bg-[#080d1a]/92 backdrop-blur-xl border-b border-white/5"
@@ -156,9 +158,17 @@ export function Layout({ children }: { children: ReactNode }) {
               })}
             </nav>
 
-            {/* Search + CTA */}
+            {/* Search + Theme Toggle + CTA */}
             <div className="hidden lg:flex items-center gap-3">
               <SearchBar variant="navbar" />
+              <button
+                onClick={toggleTheme}
+                data-testid="button-theme-toggle"
+                title={theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
+                className="w-9 h-9 rounded-full flex items-center justify-center border border-white/10 bg-white/[0.04] text-slate-400 hover:text-cyan-300 hover:border-cyan-500/40 hover:bg-cyan-500/10 transition-all duration-200 flex-shrink-0"
+              >
+                {theme === "dark" ? <Sun size={15} /> : <Moon size={15} />}
+              </button>
               <Link
                 href="/contact"
                 data-testid="button-cta-get-started"
@@ -172,14 +182,23 @@ export function Layout({ children }: { children: ReactNode }) {
               </Link>
             </div>
 
-            {/* Mobile Menu Toggle */}
-            <button
-              className="lg:hidden text-slate-300 p-2 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition-colors"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              data-testid="button-mobile-menu"
-            >
-              {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
-            </button>
+            {/* Mobile: theme toggle + menu button */}
+            <div className="lg:hidden flex items-center gap-2">
+              <button
+                onClick={toggleTheme}
+                data-testid="button-theme-toggle-mobile"
+                className="text-slate-400 p-2 rounded-lg bg-white/5 border border-white/10 hover:bg-cyan-500/10 hover:text-cyan-300 transition-colors"
+              >
+                {theme === "dark" ? <Sun size={17} /> : <Moon size={17} />}
+              </button>
+              <button
+                className="text-slate-300 p-2 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition-colors"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                data-testid="button-mobile-menu"
+              >
+                {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+              </button>
+            </div>
           </div>
         </div>
         <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/5 to-transparent" />
@@ -193,7 +212,7 @@ export function Layout({ children }: { children: ReactNode }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-40 bg-[#080d1a]/99 backdrop-blur-2xl pt-[4.5rem] px-5 flex flex-col overflow-y-auto"
+            className="creavix-mobile-menu fixed inset-0 z-40 bg-[#080d1a]/99 backdrop-blur-2xl pt-[4.5rem] px-5 flex flex-col overflow-y-auto"
           >
             {/* Mobile Search */}
             <div className="mb-4 pt-4">
@@ -267,7 +286,7 @@ export function Layout({ children }: { children: ReactNode }) {
       </main>
 
       {/* ─── Footer ─── */}
-      <footer className="border-t border-white/5 bg-[#060b18] pt-14 pb-8">
+      <footer className="creavix-footer border-t border-white/5 bg-[#060b18] pt-14 pb-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Footer Search */}
           <div className="mb-12">

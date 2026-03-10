@@ -11,10 +11,12 @@ This is a portfolio/agency website for **Creavix IT Solution**, a video producti
 - `/blog` — Blog page with 6 posts about digital marketing and video production
 
 **Global UI components:**
+- AIHeroScene: Canvas-based neural network particle animation as hero background (10 animated nodes, pulsing connection lines, floating AI labels)
 - FloatingActions: Bottom-right fixed panel — AI chatbot (Gemini), WhatsApp button (minimizes when chat open), scroll-to-top arrow
 - StatsCounter: Animated count-up on scroll-into-view (3700+ projects, 2100+ clients, 5-star ratings from DB, 100% satisfaction)
 - SearchBar: Intelligent dropdown search across all site content
 - Language toggle: EN/Bengali translation bar at top of every page
+- Theme toggle: Sun/Moon button in navbar + mobile — toggles dark/light mode, persisted to localStorage; ThemeContext via ThemeProvider in App.tsx
 
 ---
 

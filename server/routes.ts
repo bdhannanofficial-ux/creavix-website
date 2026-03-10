@@ -117,26 +117,34 @@ export async function registerRoutes(
         ? "\n\n[IMPORTANT: The user's interface is in Bengali. ALWAYS reply in fluent Bengali (বাংলা).]"
         : "";
 
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 15000);
+
       const response = await fetch(
         `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
+          signal: controller.signal,
           body: JSON.stringify({
+            systemInstruction: {
+              parts: [{ text: SYSTEM_PROMPT + langHint }]
+            },
             contents: [
               {
                 role: "user",
-                parts: [{ text: SYSTEM_PROMPT + langHint + "\n\n---\nUser message: " + message }]
+                parts: [{ text: message }]
               }
             ],
             generationConfig: {
-              temperature: 0.75,
-              maxOutputTokens: 300,
-              topP: 0.9,
+              temperature: 0.72,
+              maxOutputTokens: 350,
+              topP: 0.88,
             }
           }),
         }
       );
+      clearTimeout(timeout);
 
       if (!response.ok) {
         const err = await response.text();

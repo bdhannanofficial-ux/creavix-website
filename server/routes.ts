@@ -3,6 +3,16 @@ import type { Server } from "http";
 import { storage } from "./storage";
 import { api } from "@shared/routes";
 import { z } from "zod";
+import { GoogleGenAI } from "@google/genai";
+
+// Replit AI Integrations — no personal API key needed, billed to Replit credits
+const ai = new GoogleGenAI({
+  apiKey: process.env.AI_INTEGRATIONS_GEMINI_API_KEY,
+  httpOptions: {
+    apiVersion: "",
+    baseUrl: process.env.AI_INTEGRATIONS_GEMINI_BASE_URL,
+  },
+});
 
 const SYSTEM_PROMPT = `তুমি Creavix IT Solution-এর একজন বুদ্ধিমান AI সহকারী। তুমি ওয়েবসাইটের সমস্ত তথ্য জানো এবং ব্যবহারকারীকে সঠিক ও সহায়ক উত্তর দাও।
 
@@ -110,56 +120,30 @@ export async function registerRoutes(
         lang: z.string().optional().default("en"),
       }).parse(req.body);
 
-      const apiKey = process.env.GEMINI_API_KEY;
-      if (!apiKey) return res.status(500).json({ message: "AI service not configured" });
-
       const langHint = lang === 'bn'
-        ? "\n\n[IMPORTANT: The user's interface is in Bengali. ALWAYS reply in fluent Bengali (বাংলা).]"
-        : "";
+        ? "\n\n[গুরুত্বপূর্ণ নির্দেশ: ব্যবহারকারী বাংলায় কথা বলছে। অবশ্যই সম্পূর্ণ বাংলায় উত্তর দাও।]"
+        : "\n\n[Instruction: User interface is in English. Reply in clear English.]";
 
-      const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 15000);
+      const result = await ai.models.generateContent({
+        model: "gemini-2.5-flash",
+        config: {
+          systemInstruction: SYSTEM_PROMPT + langHint,
+          temperature: 0.72,
+          maxOutputTokens: 400,
+          topP: 0.88,
+        },
+        contents: [
+          { role: "user", parts: [{ text: message }] }
+        ],
+      });
 
-      const response = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          signal: controller.signal,
-          body: JSON.stringify({
-            systemInstruction: {
-              parts: [{ text: SYSTEM_PROMPT + langHint }]
-            },
-            contents: [
-              {
-                role: "user",
-                parts: [{ text: message }]
-              }
-            ],
-            generationConfig: {
-              temperature: 0.72,
-              maxOutputTokens: 350,
-              topP: 0.88,
-            }
-          }),
-        }
-      );
-      clearTimeout(timeout);
-
-      if (!response.ok) {
-        const err = await response.text();
-        console.error("Gemini error:", err);
-        return res.status(500).json({ message: "AI service error" });
-      }
-
-      const data = await response.json() as any;
-      const text = data.candidates?.[0]?.content?.parts?.[0]?.text
-        ?? (lang === 'bn'
-          ? "দুঃখিত, এখন উত্তর দেওয়া সম্ভব হচ্ছে না। অনুগ্রহ করে সরাসরি যোগাযোগ করুন: +8801714-061016"
-          : "Sorry, I couldn't process that. Please contact us directly at +8801714-061016.");
+      const text = result.text ?? (lang === 'bn'
+        ? "দুঃখিত, এখন উত্তর দেওয়া সম্ভব হচ্ছে না। অনুগ্রহ করে সরাসরি যোগাযোগ করুন: +880 1714-061016"
+        : "Sorry, I couldn't process that. Please contact us directly at +880 1714-061016.");
 
       res.json({ reply: text });
     } catch (err) {
+      console.error("Chat error:", err);
       if (err instanceof z.ZodError) return res.status(400).json({ message: "Invalid message" });
       return res.status(500).json({ message: "Internal server error" });
     }

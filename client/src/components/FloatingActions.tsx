@@ -94,7 +94,7 @@ export function FloatingActions() {
 
   const chatMutation = useMutation({
     mutationFn: (message: string) =>
-      apiRequest("/api/chat", { method: "POST", body: JSON.stringify({ message, lang: language }) })
+      apiRequest("POST", "/api/chat", { message, lang: language })
         .then(r => r.json()) as Promise<{ reply: string }>,
     onSuccess: (data) => {
       setMessages(prev => [...prev, { id: Date.now().toString(), role: "assistant", text: data.reply }]);

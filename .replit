@@ -42,3 +42,6 @@ waitForPort = 5000
 
 [userenv.shared]
 GEMINI_API_KEY = "AIzaSyC-zUrDCVSSQL9A94tu4Y7a00G4zhsus6A"
+
+[agent]
+integrations = ["javascript_gemini_ai_integrations:2.0.0"]

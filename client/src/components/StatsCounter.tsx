@@ -83,7 +83,7 @@ function StatCard({ icon, value, suffix, label, sublabel, color, trigger, delay 
 }
 
 export function StatsCounter() {
-  const { t, language } = useLanguage();
+  const { t, lang: language } = useLanguage();
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { amount: 0.3 });
   const [trigger, setTrigger] = useState(false);

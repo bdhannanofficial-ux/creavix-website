@@ -131,53 +131,55 @@
   }
 }
 
-/* ─── Comprehensive Light Mode: Fix hardcoded white text ─── */
+/* ─── Light Mode: Main content area only (footer intentionally stays dark) ─── */
 
-/* All text-white / text-white/* classes → foreground in light mode */
-.light [class*="text-white"] {
+/* text-white / text-white/* → foreground (scoped to main page content only) */
+.light main [class*="text-white"],
+.light .creavix-header [class*="text-white"] {
   color: hsl(var(--foreground)) !important;
 }
 
-/* Hardcoded dark backgrounds → light backgrounds */
-.light [class*="bg-\\[#080d1a\\]"],
-.light [class*="bg-\\[#060b18\\]"],
-.light [class*="bg-\\[#040810\\]"] {
-  background-color: hsl(var(--card)) !important;
-}
-
-/* bg-white/X → neutral light tint */
-.light [class*="bg-white/"] {
+/* bg-white/X in main → neutral light tint */
+.light main [class*="bg-white/"] {
   background-color: rgba(0, 0, 0, 0.03) !important;
 }
 
-/* border-white/X → light border */
-.light [class*="border-white/"] {
+/* border-white/X in main → subtle light border */
+.light main [class*="border-white/"] {
   border-color: rgba(0, 0, 0, 0.09) !important;
 }
 
-/* text-slate-300/400/500 → muted on light background */
-.light .text-slate-300,
-.light .text-slate-400,
-.light .text-slate-500,
-.light .text-slate-600 {
+/* text-slate-* in main → muted foreground */
+.light main .text-slate-300,
+.light main .text-slate-400,
+.light main .text-slate-500,
+.light main .text-slate-600 {
   color: hsl(var(--muted-foreground)) !important;
 }
 
-/* Gradient text exceptions: don't override these */
+/* Gradient text exceptions: keep transparent so gradient shows */
 .light [style*="WebkitTextFillColor"],
 .light [style*="-webkit-text-fill-color"] {
   color: transparent !important;
 }
 
-/* Section gradient backgrounds → lighter in light mode */
-.light .glass-card {
+/* glass-card in main → light style */
+.light main .glass-card {
   background: rgba(0, 0, 0, 0.03) !important;
   border-color: rgba(0, 0, 0, 0.08) !important;
 }
 
-/* ─── Light mode: Hero section ─── */
+/* Blog modal overlay in light mode */
+.light .blog-modal-overlay {
+  background: rgba(0, 0, 0, 0.5) !important;
+}
+.light .blog-modal-content [class*="text-white"] {
+  color: hsl(var(--foreground)) !important;
+}
+
+/* AI Grid slightly more visible in light mode */
 .light .ai-grid-bg {
-  opacity: 0.5;
+  opacity: 0.6;
 }
 
 /* Custom Scrollbar */

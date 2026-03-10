@@ -8,6 +8,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { useTheme } from "@/contexts/ThemeContext";
 import { SearchBar } from "@/components/SearchBar";
 import { FloatingActions } from "@/components/FloatingActions";
+import { OrderFooterCTA } from "@/components/OrderCTA";
 
 const socialLinks = [
   { icon: FaFacebookF, href: "https://web.facebook.com/CreavixITSolution", label: "Facebook" },
@@ -288,6 +289,9 @@ export function Layout({ children }: { children: ReactNode }) {
       {/* ─── Footer ─── */}
       <footer className="creavix-footer border-t border-white/5 bg-[#060b18] pt-14 pb-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Order Now CTA Banner */}
+          <OrderFooterCTA />
+
           {/* Footer Search */}
           <div className="mb-12">
             <p className="text-center text-sm text-slate-500 mb-4">{t("footer_find")}</p>

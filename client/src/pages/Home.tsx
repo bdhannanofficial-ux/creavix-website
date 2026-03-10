@@ -2,6 +2,7 @@ import { Layout } from "@/components/Layout";
 import { VideoEmbed } from "@/components/VideoEmbed";
 import { StatsCounter } from "@/components/StatsCounter";
 import { AIHeroScene } from "@/components/AIHeroScene";
+import { OrderCTA } from "@/components/OrderCTA";
 import { motion } from "framer-motion";
 import { ArrowRight, PlayCircle, Sparkles, Zap, Brain } from "lucide-react";
 import { Link } from "wouter";
@@ -152,8 +153,11 @@ export default function Home() {
       {/* Stats Counter */}
       <StatsCounter />
 
+      {/* Order Now CTA */}
+      <OrderCTA />
+
       {/* Portfolio */}
-      <div id="portfolio" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-28 pb-16">
+      <div id="portfolio" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24 pb-16">
         {videoCategories.map((category, index) => (
           <section key={index} data-testid={`video-section-${index}`}>
             <motion.div
@@ -161,7 +165,7 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.65 }}
-              className="mb-12 md:mb-16"
+              className="mb-8 md:mb-12"
             >
               <div className="inline-block px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-bold uppercase tracking-widest mb-4">
                 {t("cat_label")} 0{index + 1}
@@ -170,12 +174,13 @@ export default function Home() {
               <p className="text-muted-foreground text-lg max-w-2xl">{t(category.descKey)}</p>
             </motion.div>
 
+            {/* Shorts grid: 2 per row on mobile, 3 on tablet, 4 on desktop */}
             <motion.div
               variants={containerVariants}
               initial="hidden"
               whileInView="show"
-              viewport={{ once: true, margin: "-50px" }}
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
+              viewport={{ once: true, margin: "-40px" }}
+              className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3 lg:gap-4"
             >
               {category.ids.map((id) => (
                 <motion.div key={id} variants={itemVariants}>

@@ -196,3 +196,54 @@
 ::-webkit-scrollbar-track { background: hsl(var(--background)); }
 ::-webkit-scrollbar-thumb { background: hsl(var(--border)); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: hsl(var(--muted-foreground)); }
+
+/* ─── Mobile Performance & Touch Optimization ─── */
+
+/* Remove 300ms click delay on all interactive elements */
+a, button, [role="button"], input, select, textarea, label {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Smooth scroll for anchor links */
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* GPU-accelerated elements for smooth animations */
+.group { transform: translateZ(0); }
+
+/* Video thumbnail loading optimization */
+img[loading="lazy"] {
+  content-visibility: auto;
+}
+
+/* Prevent layout shift from images before load */
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* iOS safe area padding for fixed elements */
+@supports (padding: env(safe-area-inset-bottom)) {
+  .floating-actions-container {
+    bottom: calc(1.5rem + env(safe-area-inset-bottom));
+  }
+}
+
+/* Reduce motion if user prefers */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Bengali font rendering optimization */
+.font-bengali {
+  font-feature-settings: "liga" 1, "kern" 1;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}

@@ -1,10 +1,10 @@
 import { Layout } from "@/components/Layout";
 import { VideoEmbed } from "@/components/VideoEmbed";
 import { StatsCounter } from "@/components/StatsCounter";
+import { AnimatedLogo } from "@/components/AnimatedLogo";
 import { motion } from "framer-motion";
 import { ArrowRight, PlayCircle } from "lucide-react";
 import { Link } from "wouter";
-import logoImg from "@assets/new-logo_1773114552036.png";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const videoCategories = [
@@ -48,15 +48,12 @@ export default function Home() {
       <section className="relative pt-16 pb-28 lg:pt-24 lg:pb-36 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scale: 0.85 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="mb-8 flex justify-center"
+            transition={{ duration: 1, ease: "easeOut" }}
+            className="mb-6 flex justify-center"
           >
-            <div className="relative inline-block">
-              <div className="absolute -inset-4 bg-primary/20 blur-3xl rounded-full" />
-              <img src={logoImg} alt="Creavix" className="h-24 md:h-32 lg:h-40 w-auto relative z-10" />
-            </div>
+            <AnimatedLogo />
           </motion.div>
 
           <motion.h1

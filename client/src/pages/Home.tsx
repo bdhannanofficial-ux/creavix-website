@@ -12,21 +12,25 @@ const videoCategories = [
   {
     titleKey: "cat1_title" as const,
     descKey: "cat1_desc" as const,
+    isShorts: false,   // Full-length storytelling — landscape 16:9
     ids: ["FvWyFDNAAPY", "4ryJaLx6o0k", "MPYdZfeJQX4", "OcyCYVfko3k", "QdPW3bDFc5I", "3U3-3IgbPQc"]
   },
   {
     titleKey: "cat2_title" as const,
     descKey: "cat2_desc" as const,
+    isShorts: true,    // Short-form — portrait 9:16
     ids: ["Szel9WlwaS8", "rQk_sPwkDwU", "w9LPO4Ddpos", "6EKnfroWXQE", "pVqdFDTyfdg", "LrORiOjB4X0", "tooCPxc0pnY", "lQZSDKRikf8", "KU7j0JhzJKI", "P65MlYwcXes"]
   },
   {
     titleKey: "cat3_title" as const,
     descKey: "cat3_desc" as const,
+    isShorts: true,    // Short-form — portrait 9:16
     ids: ["8nCuthKfbIU", "0baTxFVpSyo", "7knZkqenPII", "J8rkaUqNYfY", "YYZS_C4clHY"]
   },
   {
     titleKey: "cat4_title" as const,
     descKey: "cat4_desc" as const,
+    isShorts: true,    // Short-form — portrait 9:16
     ids: ["6n2y_nrRahM", "DjXhq-ScyE8", "eEqeRIsI9oQ", "MtgdKWMRAPI", "u6YLq7lDDdY", "KxFQv4M-bow", "icxH_8aqiSM"]
   }
 ];
@@ -174,17 +178,22 @@ export default function Home() {
               <p className="text-muted-foreground text-lg max-w-2xl">{t(category.descKey)}</p>
             </motion.div>
 
-            {/* Shorts grid: 2 per row on mobile, 3 on tablet, 4 on desktop */}
+            {/* Landscape: 1 col mobile → 2 col tablet → 3 col desktop
+                Shorts:    2 col mobile → 3 col tablet → 4 col desktop */}
             <motion.div
               variants={containerVariants}
               initial="hidden"
               whileInView="show"
               viewport={{ once: true, margin: "-40px" }}
-              className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3 lg:gap-4"
+              className={
+                category.isShorts
+                  ? "grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3 lg:gap-4"
+                  : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6"
+              }
             >
               {category.ids.map((id) => (
                 <motion.div key={id} variants={itemVariants}>
-                  <VideoEmbed videoId={id} title={t(category.titleKey)} />
+                  <VideoEmbed videoId={id} title={t(category.titleKey)} isShorts={category.isShorts} />
                 </motion.div>
               ))}
             </motion.div>

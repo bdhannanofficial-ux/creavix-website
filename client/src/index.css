@@ -56,6 +56,17 @@
   .glass-nav {
     @apply bg-background/70 backdrop-blur-xl border-b border-white/5;
   }
+
+  .nav-pill-active {
+    text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+  }
+
+  .nav-3d-glow {
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.12) inset,
+      0 -1px 0 rgba(0,0,0,0.25) inset,
+      0 4px 20px rgba(6,182,212,0.08);
+  }
   
   .glass-card {
     @apply bg-white/[0.02] backdrop-blur-sm border border-white/5 shadow-2xl;

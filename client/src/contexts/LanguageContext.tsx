@@ -9,6 +9,7 @@ const translations = {
     nav_team: "Our Team",
     nav_contact: "Contact",
     nav_blog: "Blog",
+    nav_terms: "Terms & Policy",
     nav_get_started: "Get Started",
     nav_search_placeholder: "Search...",
     // Header
@@ -135,6 +136,7 @@ const translations = {
     nav_team: "আমাদের টিম",
     nav_contact: "যোগাযোগ",
     nav_blog: "ব্লগ",
+    nav_terms: "নীতিমালা",
     nav_get_started: "শুরু করুন",
     nav_search_placeholder: "খুঁজুন...",
     // Header

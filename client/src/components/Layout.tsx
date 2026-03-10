@@ -30,6 +30,7 @@ export function Layout({ children }: { children: ReactNode }) {
     { key: "nav_team" as const, path: "/team" },
     { key: "nav_blog" as const, path: "/blog" },
     { key: "nav_contact" as const, path: "/contact" },
+    { key: "nav_terms" as const, path: "/terms" },
   ];
 
   useEffect(() => {

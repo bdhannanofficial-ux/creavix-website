@@ -16,7 +16,7 @@ const socialLinks = [
   { icon: FaFacebookF, href: "https://web.facebook.com/CreavixITSolution", label: "Facebook" },
   { icon: FaLinkedinIn, href: "https://www.linkedin.com/in/creavix-it-solution", label: "LinkedIn" },
   { icon: FaYoutube, href: "https://www.youtube.com/@CreavixiTsolution", label: "YouTube" },
-  { icon: FaInstagram, href: "https://www.instagram.com/creavixit", label: "Instagram" },
+  { icon: FaInstagram, href: "https://www.instagram.com/creavixitsolution", label: "Instagram" },
   { icon: FaXTwitter, href: "https://x.com/creavixit", label: "X/Twitter" },
 ];
 

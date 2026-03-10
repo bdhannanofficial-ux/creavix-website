@@ -104,8 +104,8 @@ export function FloatingActions() {
         id: Date.now().toString(),
         role: "assistant",
         text: isBn
-          ? "দুঃখিত, এখন উত্তর দিতে পারছি না। সরাসরি যোগাযোগ করুন: +8801714-061016"
-          : "Sorry, couldn't respond right now. Please contact us at +8801714-061016"
+          ? "দুঃখিত, এখন উত্তর দিতে পারছি না। অনুগ্রহ করে WhatsApp বা ইমেইলে যোগাযোগ করুন: wa.me/8801890484355"
+          : "Sorry, couldn't respond right now. Please reach us on WhatsApp or email: info@creavixit.com"
       }]);
     }
   });

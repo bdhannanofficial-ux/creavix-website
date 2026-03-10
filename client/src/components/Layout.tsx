@@ -1,7 +1,8 @@
 import { ReactNode, useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ChevronRight, BadgeCheck, Globe, Sun, Moon, MapPin } from "lucide-react";
+import { Menu, X, ChevronRight, BadgeCheck, Globe, Sun, Moon, MapPin, Mail, Phone } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 import { FaFacebookF, FaLinkedinIn, FaYoutube, FaInstagram, FaXTwitter } from "react-icons/fa6";
 import logoImg from "@assets/new-logo_1773114552036.png";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -383,11 +384,40 @@ export function Layout({ children }: { children: ReactNode }) {
             <div>
               <h4 className="text-sm font-bold text-white mb-5 tracking-wider uppercase">{t("footer_contact")}</h4>
               <ul className="space-y-3 text-sm text-slate-400">
-                <li><a href="mailto:info@creavixit.com" className="hover:text-cyan-300 transition-colors">info@creavixit.com</a></li>
-                <li><a href="mailto:creavixbd@gmail.com" className="hover:text-cyan-300 transition-colors">creavixbd@gmail.com</a></li>
-                <li><a href="tel:+8809611132835" className="hover:text-cyan-300 transition-colors">+880 9611132835</a></li>
                 <li>
-                  <a href="https://wa.me/8801890484355" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-300 transition-colors">
+                  <a href="mailto:info@creavixit.com" className="flex items-center gap-2.5 hover:text-cyan-300 transition-colors group">
+                    <span className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0 transition-colors duration-200"
+                      style={{ background: "rgba(6,182,212,0.12)", border: "1px solid rgba(6,182,212,0.2)" }}>
+                      <Mail size={13} className="text-cyan-500 group-hover:text-cyan-300" />
+                    </span>
+                    info@creavixit.com
+                  </a>
+                </li>
+                <li>
+                  <a href="mailto:creavixbd@gmail.com" className="flex items-center gap-2.5 hover:text-cyan-300 transition-colors group">
+                    <span className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0 transition-colors duration-200"
+                      style={{ background: "rgba(234,67,53,0.12)", border: "1px solid rgba(234,67,53,0.2)" }}>
+                      <Mail size={13} className="text-red-400 group-hover:text-cyan-300" />
+                    </span>
+                    creavixbd@gmail.com
+                  </a>
+                </li>
+                <li>
+                  <a href="tel:+8809611132835" className="flex items-center gap-2.5 hover:text-cyan-300 transition-colors group">
+                    <span className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0 transition-colors duration-200"
+                      style={{ background: "rgba(168,85,247,0.12)", border: "1px solid rgba(168,85,247,0.2)" }}>
+                      <Phone size={13} className="text-purple-400 group-hover:text-cyan-300" />
+                    </span>
+                    +880 9611132835
+                  </a>
+                </li>
+                <li>
+                  <a href="https://wa.me/8801890484355" target="_blank" rel="noopener noreferrer"
+                    className="flex items-center gap-2.5 hover:text-cyan-300 transition-colors group">
+                    <span className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0 transition-colors duration-200"
+                      style={{ background: "rgba(37,211,102,0.12)", border: "1px solid rgba(37,211,102,0.2)" }}>
+                      <FaWhatsapp size={13} className="text-green-400 group-hover:text-cyan-300" />
+                    </span>
                     WhatsApp: +880 1890484355
                   </a>
                 </li>
@@ -396,9 +426,12 @@ export function Layout({ children }: { children: ReactNode }) {
                     href="https://www.google.com/maps/search/?api=1&query=Hemayetpur,Savar,Dhaka,Bangladesh"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-start gap-2 hover:text-cyan-300 transition-colors group"
+                    className="flex items-start gap-2.5 hover:text-cyan-300 transition-colors group"
                   >
-                    <MapPin size={14} className="shrink-0 mt-0.5 text-cyan-600 group-hover:text-cyan-300 transition-colors" />
+                    <span className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0 mt-0.5 transition-colors duration-200"
+                      style={{ background: "rgba(251,191,36,0.12)", border: "1px solid rgba(251,191,36,0.2)" }}>
+                      <MapPin size={13} className="text-amber-400 group-hover:text-cyan-300" />
+                    </span>
                     <span style={{ fontFamily: lang === "bn" ? "'Hind Siliguri', 'DM Sans', sans-serif" : undefined }}>
                       {t("contact_address")}
                     </span>

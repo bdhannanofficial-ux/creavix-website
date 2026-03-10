@@ -6,6 +6,7 @@ import { FaFacebookF, FaLinkedinIn, FaYoutube, FaInstagram, FaXTwitter } from "r
 import logoImg from "@assets/new-logo_1773114552036.png";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { SearchBar } from "@/components/SearchBar";
+import { FloatingActions } from "@/components/FloatingActions";
 
 const socialLinks = [
   { icon: FaFacebookF, href: "https://web.facebook.com/CreavixITSolution", label: "Facebook" },
@@ -344,6 +345,7 @@ export function Layout({ children }: { children: ReactNode }) {
           </div>
         </div>
       </footer>
+      <FloatingActions />
     </div>
   );
 }

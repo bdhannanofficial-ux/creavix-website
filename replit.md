@@ -5,9 +5,16 @@
 This is a portfolio/agency website for **Creavix IT Solution**, a video production and editing company. The site showcases their video ad work, introduces the team, and provides a contact form with a star rating system. It is a full-stack TypeScript web application with a React frontend and an Express backend, using PostgreSQL (via Drizzle ORM) to store contact form submissions.
 
 **Pages:**
-- `/` — Portfolio (Home): Showcases YouTube video ad categories with lazy-loaded embeds
+- `/` — Portfolio (Home): Hero + animated stats counter + YouTube video ad categories with lazy-loaded embeds
 - `/team` — Team page: Founder and senior video editors with bios
 - `/contact` — Contact form: Name, email, message, and 1–5 star rating, submitted to the backend
+- `/blog` — Blog page with 6 posts about digital marketing and video production
+
+**Global UI components:**
+- FloatingActions: Bottom-right fixed panel — AI chatbot (Gemini), WhatsApp button (minimizes when chat open), scroll-to-top arrow
+- StatsCounter: Animated count-up on scroll-into-view (3700+ projects, 2100+ clients, 5-star ratings from DB, 100% satisfaction)
+- SearchBar: Intelligent dropdown search across all site content
+- Language toggle: EN/Bengali translation bar at top of every page
 
 ---
 

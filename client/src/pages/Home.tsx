@@ -1,5 +1,6 @@
 import { Layout } from "@/components/Layout";
 import { VideoEmbed } from "@/components/VideoEmbed";
+import { StatsCounter } from "@/components/StatsCounter";
 import { motion } from "framer-motion";
 import { ArrowRight, PlayCircle } from "lucide-react";
 import { Link } from "wouter";
@@ -99,6 +100,9 @@ export default function Home() {
           </motion.div>
         </div>
       </section>
+
+      {/* Stats Counter */}
+      <StatsCounter />
 
       {/* Portfolio */}
       <div id="portfolio" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-28">

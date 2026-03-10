@@ -56,20 +56,15 @@
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
-    /* Prevent elastic over-scroll bounce (iOS) */
-    overscroll-behavior-y: none;
-    /* Ensure full-width on mobile */
-    overflow-x: hidden;
   }
 
   body {
     @apply bg-background text-foreground antialiased selection:bg-primary/30 selection:text-primary-foreground;
     font-family: var(--font-sans);
     transition: background-color 0.35s ease, color 0.25s ease;
+    /* Only overflow-x on body (NOT html) — prevents horizontal scroll without blocking vertical */
     overflow-x: hidden;
-    /* iOS momentum scroll */
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior-y: none;
+    overflow-y: auto;
   }
 
   /* ─── Prevent iOS auto-zoom on form inputs ─── */

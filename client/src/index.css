@@ -95,6 +95,24 @@
     max-width: 100%;
     height: auto;
   }
+
+  /* ─── Global interactive element optimizations ─── */
+  /* Eliminate 300ms tap delay on iOS, kill grey tap flash, enforce pointer cursor */
+  a,
+  button,
+  [role="button"],
+  input[type="submit"],
+  input[type="button"],
+  label[for] {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
+  }
+
+  /* Ensure anchor tags are always pointer */
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
 }
 
 /* ─── Light Mode Nav/Header overrides ─── */

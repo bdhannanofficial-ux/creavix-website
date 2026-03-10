@@ -132,14 +132,20 @@ export function Layout({ children }: { children: ReactNode }) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between gap-3">
 
-            {/* Logo + Brand */}
-            <Link href="/" className="flex items-center gap-3 group flex-shrink-0" data-testid="link-home-logo">
+            {/* Logo + Brand — tapping anywhere on logo or name → Home */}
+            <Link
+              href="/"
+              className="flex items-center gap-3 group flex-shrink-0 min-h-[44px] py-1 select-none"
+              data-testid="link-home-logo"
+              style={{ WebkitTapHighlightColor: "transparent" }}
+            >
               <div className="relative">
                 <div className="absolute inset-0 rounded-xl bg-cyan-400/20 blur-md group-hover:blur-lg transition-all duration-300 scale-110" />
                 <img
                   src={logoImg}
                   alt="Creavix IT Solution Logo"
                   className="relative h-10 w-10 object-contain rounded-xl ring-1 ring-cyan-500/30 group-hover:ring-cyan-400/60 transition-all duration-300"
+                  draggable={false}
                 />
               </div>
               <div className="flex flex-col leading-none">

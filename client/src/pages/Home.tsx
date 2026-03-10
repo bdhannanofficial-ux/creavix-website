@@ -37,11 +37,15 @@ const videoCategories = [
 
 const containerVariants = {
   hidden: { opacity: 0 },
-  show: { opacity: 1, transition: { staggerChildren: 0.1 } }
+  show: { opacity: 1, transition: { staggerChildren: 0.055, delayChildren: 0 } }
 };
 const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 24 } }
+  hidden: { opacity: 0, y: 22 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { type: "spring", stiffness: 380, damping: 28, mass: 0.8 }
+  }
 };
 
 export default function Home() {
@@ -192,7 +196,7 @@ export default function Home() {
               }
             >
               {category.ids.map((id) => (
-                <motion.div key={id} variants={itemVariants}>
+                <motion.div key={id} variants={itemVariants} style={{ willChange: "transform, opacity" }}>
                   <VideoEmbed videoId={id} title={t(category.titleKey)} isShorts={category.isShorts} />
                 </motion.div>
               ))}

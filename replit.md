@@ -7,8 +7,9 @@ This is a portfolio/agency website for **Creavix IT Solution**, a video producti
 **Pages:**
 - `/` — Portfolio (Home): Hero + animated stats counter + YouTube video ad categories with lazy-loaded embeds
 - `/team` — Team page: Founder and senior video editors with bios
-- `/contact` — Contact form: Name, email, message, and 1–5 star rating, submitted to the backend
+- `/contact` — Contact form: Name, email, message, 1–5 star rating + interactive Leaflet map with custom animated pin
 - `/blog` — Blog page with 6 posts about digital marketing and video production
+- `/terms` — Terms & Conditions (6 accordion sections, bilingual EN/BN)
 
 **Global UI components:**
 - AIHeroScene: Canvas-based neural network particle animation as hero background (10 animated nodes, pulsing connection lines, floating AI labels)

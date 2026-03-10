@@ -1,0 +1,30 @@
+User-agent: *
+Allow: /
+
+# Block internal/API routes from indexing
+Disallow: /api/
+Disallow: /admin/
+
+# Crawl delay (polite crawling)
+Crawl-delay: 2
+
+# Sitemap location
+Sitemap: https://creavix-it.replit.app/sitemap.xml
+
+# Allow Google Image bot
+User-agent: Googlebot-Image
+Allow: /
+
+# Allow Bing
+User-agent: Bingbot
+Allow: /
+
+# Block bad bots
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /

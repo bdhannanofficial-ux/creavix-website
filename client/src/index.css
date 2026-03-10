@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Outfit:wght@300;400;500;600;700;800&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -53,16 +51,54 @@
     --ring: 43 96% 46%;
   }
 
+  /* ─── Global HTML / Body ─── */
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    /* Prevent elastic over-scroll bounce (iOS) */
+    overscroll-behavior-y: none;
+    /* Ensure full-width on mobile */
+    overflow-x: hidden;
+  }
+
   body {
     @apply bg-background text-foreground antialiased selection:bg-primary/30 selection:text-primary-foreground;
     font-family: var(--font-sans);
     transition: background-color 0.35s ease, color 0.25s ease;
+    overflow-x: hidden;
+    /* iOS momentum scroll */
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: none;
+  }
+
+  /* ─── Prevent iOS auto-zoom on form inputs ─── */
+  /* iOS zooms when input font-size < 16px — this is the definitive fix */
+  input,
+  select,
+  textarea,
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="search"],
+  input[type="number"],
+  input[type="password"],
+  input[type="url"] {
+    font-size: 16px !important;
+    -webkit-text-size-adjust: 100%;
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
     @apply tracking-tight font-bold;
     color: hsl(var(--foreground));
+  }
+
+  /* ─── Prevent layout-breaking max-width on images ─── */
+  img {
+    display: block;
+    max-width: 100%;
+    height: auto;
   }
 }
 
@@ -133,23 +169,19 @@
 
 /* ─── Light Mode: Main content area only (footer intentionally stays dark) ─── */
 
-/* text-white / text-white/* → foreground (scoped to main page content only) */
 .light main [class*="text-white"],
 .light .creavix-header [class*="text-white"] {
   color: hsl(var(--foreground)) !important;
 }
 
-/* bg-white/X in main → neutral light tint */
 .light main [class*="bg-white/"] {
   background-color: rgba(0, 0, 0, 0.03) !important;
 }
 
-/* border-white/X in main → subtle light border */
 .light main [class*="border-white/"] {
   border-color: rgba(0, 0, 0, 0.09) !important;
 }
 
-/* text-slate-* in main → muted foreground */
 .light main .text-slate-300,
 .light main .text-slate-400,
 .light main .text-slate-500,
@@ -157,20 +189,18 @@
   color: hsl(var(--muted-foreground)) !important;
 }
 
-/* Gradient text exceptions: keep transparent so gradient shows */
+/* Gradient text exceptions */
 .light [style*="WebkitTextFillColor"],
 .light [style*="-webkit-text-fill-color"] {
   color: transparent !important;
 }
 
-/* glass-card in main → light style */
 .light main .glass-card {
   background: rgba(0, 0, 0, 0.03) !important;
   border-color: rgba(0, 0, 0, 0.08) !important;
 }
 
-/* Blog modal ALWAYS has dark bg — force light text regardless of page theme */
-/* Using .light prefix for higher specificity (0,3,0 vs 0,2,1 of the main override) */
+/* Blog modal ALWAYS has dark bg */
 .blog-modal-content [class*="text-white"],
 .light .blog-modal-content [class*="text-white"] { color: white !important; }
 .blog-modal-content .text-slate-300,
@@ -186,64 +216,96 @@
 .blog-modal-content [class*="border-white/"],
 .light .blog-modal-content [class*="border-white/"] { border-color: rgba(255,255,255,0.1) !important; }
 
-/* AI Grid slightly more visible in light mode */
 .light .ai-grid-bg {
   opacity: 0.6;
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: hsl(var(--background)); }
+/* ─── Custom Scrollbar ─── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: hsl(var(--border)); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: hsl(var(--muted-foreground)); }
 
-/* ─── Mobile Performance & Touch Optimization ─── */
+/* ─── Touch & Mobile Performance ─── */
 
-/* Remove 300ms click delay on all interactive elements */
-a, button, [role="button"], input, select, textarea, label {
+/* Remove 300ms click delay on ALL interactive elements */
+a, button, [role="button"], label,
+input[type="submit"], input[type="button"], input[type="reset"] {
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
 }
 
-/* Smooth scroll for anchor links */
-html {
-  scroll-behavior: smooth;
-  -webkit-text-size-adjust: 100%;
+/* GPU-accelerated scroll animations */
+.motion-safe\:animate-reveal {
+  will-change: transform, opacity;
 }
 
-/* GPU-accelerated elements for smooth animations */
-.group { transform: translateZ(0); }
+/* ─── Scroll-up reveal base class ─── */
+/* Used by framer-motion — ensures GPU composite layers */
+[data-motion-reveal] {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+}
 
-/* Video thumbnail loading optimization */
-img[loading="lazy"] {
+/* ─── Content sections below fold — painted lazily ─── */
+/* Saves rendering time for off-screen content */
+.content-section-lazy {
   content-visibility: auto;
+  contain-intrinsic-size: 0 600px;
 }
 
-/* Prevent layout shift from images before load */
-img {
-  display: block;
-  max-width: 100%;
+/* ─── Prevent horizontal overflow on all mobile ─── */
+* {
+  box-sizing: border-box;
+  min-width: 0;
 }
 
-/* iOS safe area padding for fixed elements */
+/* ─── iOS safe area for floating buttons ─── */
 @supports (padding: env(safe-area-inset-bottom)) {
   .floating-actions-container {
     bottom: calc(1.5rem + env(safe-area-inset-bottom));
   }
 }
 
-/* Reduce motion if user prefers */
+/* ─── Reduce motion for accessibility + battery saving ─── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 
-/* Bengali font rendering optimization */
+/* ─── Bengali font rendering optimization ─── */
 .font-bengali {
   font-feature-settings: "liga" 1, "kern" 1;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Video thumbnail loading optimization ─── */
+img[loading="lazy"] {
+  content-visibility: auto;
+}
+
+/* ─── Focus-visible outline for keyboard accessibility ─── */
+:focus-visible {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
+}
+
+/* ─── Smooth cross-browser text rendering ─── */
+body, input, textarea, select, button {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* ─── Firefox scrollbar ─── */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--border)) transparent;
 }

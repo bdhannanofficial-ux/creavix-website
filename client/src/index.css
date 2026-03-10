@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Outfit:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Outfit:wght@300;400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -55,6 +55,21 @@
 @layer utilities {
   .glass-nav {
     @apply bg-background/70 backdrop-blur-xl border-b border-white/5;
+  }
+
+  /* Bengali font class - applied when BN language is active */
+  .font-bengali,
+  .font-bengali * {
+    font-family: 'Hind Siliguri', 'DM Sans', sans-serif !important;
+  }
+
+  .font-bengali h1,
+  .font-bengali h2,
+  .font-bengali h3,
+  .font-bengali h4,
+  .font-bengali h5 {
+    font-family: 'Hind Siliguri', 'Outfit', sans-serif !important;
+    letter-spacing: 0 !important;
   }
 
   .nav-pill-active {

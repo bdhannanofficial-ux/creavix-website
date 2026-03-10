@@ -307,17 +307,7 @@ export function Layout({ children }: { children: ReactNode }) {
 
       {/* ─── Main Content ─── */}
       <main className="flex-grow pt-[5.5rem] pb-16">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={location}
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -16 }}
-            transition={{ duration: 0.28, ease: "easeOut" }}
-          >
-            {children}
-          </motion.div>
-        </AnimatePresence>
+        {children}
       </main>
 
       {/* ─── Footer ─── */}
